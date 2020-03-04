@@ -29,7 +29,10 @@ p,a,ul,li{
 }
 
 /* ===============Navbar=================== */
-
+.navbar{
+    padding-left: 0;
+    padding-right: 0;
+}
 .navbar-brand{
     right:50%;
     top:-40px;
@@ -44,4 +47,14 @@ nav a{
 nav a:hover{
     color : var(--color_blue);
       
+}
+
+/* ===============Footer=================== */
+
+.footer{
+    background-color: var(--color_fonce);
+    color:white;
+}
+.footer a{
+    color:white;
 }
