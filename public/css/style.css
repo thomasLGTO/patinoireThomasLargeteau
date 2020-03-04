@@ -25,5 +25,23 @@ h3{
     font-size: 1.17em;
 }
 p,a,ul,li{
-    font-size: 0.8em;
+    font-size: 0.9em;
+}
+
+/* ===============Navbar=================== */
+
+.navbar-brand{
+    right:50%;
+    top:-40px;
+    transform: translate(50%, 0);
+}
+.navbar-nav{
+    width: 100%;
+}
+nav a{
+    color : var(--color_fonce);
+}
+nav a:hover{
+    color : var(--color_blue);
+      
 }
