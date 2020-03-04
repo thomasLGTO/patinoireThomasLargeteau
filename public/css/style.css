@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap');
+:root{
+    --color_fonce: #34495E;
+    --color_lightgreen : #1ABC9C;
+    --color_green : #16A085;
+    --color_blue : #3498DB;
+    --color_grey : #ecf0f1;
+}
+*{
+    font-family: 'Open Sans', sans-serif;
+}
+h1{
+    font-size: 2em;
+    text-transform : uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+h2{
+    font-size: 1.5em;
+    text-transform : uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+h3{
+    font-size: 1.17em;
+}
+p,a,ul,li{
+    font-size: 0.8em;
+}
