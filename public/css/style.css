@@ -32,14 +32,18 @@ p,a,ul,li{
 .navbar{
     padding-left: 0;
     padding-right: 0;
+    margin : 4em 0 ;
 }
-.navbar-brand{
+.logo{
     right:50%;
-    top:-40px;
+    top:-90px;
     transform: translate(50%, 0);
 }
 .navbar-nav{
     width: 100%;
+}
+.navbar-light .navbar-nav .nav-link{
+    color:var(--color_fonce);
 }
 nav a{
     color : var(--color_fonce);
@@ -48,12 +52,46 @@ nav a:hover{
     color : var(--color_blue);
       
 }
+@media screen and (max-width: 992px){
+    .boxnav{
+        flex-direction: column;
+    }
+}
+/* ===============body=================== */
+
+.box{
+    height: 300px;
+    overflow: hidden;
+    position : relative;
+    background-image: url(../images/seul.jpg);
+    background-size: 100%;
+    background-position: center 60%;
+    background-repeat: no-repeat;
+    
+}
+.box>img{
+    top :-450px;
+    min-width: 100%;
+}
+.opaquefilter{
+    background: var(--color_fonce);
+    opacity: 0.3;
+    height: 100%;
+    width: 100%;
+}
+.titleH1{
+    color :white;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
 
 /* ===============Footer=================== */
 
 .footer{
     background-color: var(--color_fonce);
     color:white;
+    height: 80px;
 }
 .footer a{
     color:white;
