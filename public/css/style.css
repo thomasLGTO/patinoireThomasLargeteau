@@ -10,23 +10,20 @@
     font-family: 'Open Sans', sans-serif;
 }
 h1{
-    font-size: 2em;
+    
     text-transform : uppercase;
     letter-spacing: 1px;
     font-weight: 600;
 }
 h2{
-    font-size: 1.5em;
+    
     text-transform : uppercase;
     letter-spacing: 1px;
     font-weight: 600;
+    color : var(--color_fonce);
+    margin: 2em 0;
 }
-h3{
-    font-size: 1.17em;
-}
-p,a,ul,li{
-    font-size: 0.9em;
-}
+
 
 /* ===============Navbar=================== */
 .navbar{
@@ -63,7 +60,6 @@ nav a:hover{
     height: 300px;
     overflow: hidden;
     position : relative;
-    background-image: url(../images/seul.jpg);
     background-size: 100%;
     background-position: center 60%;
     background-repeat: no-repeat;
@@ -95,4 +91,7 @@ nav a:hover{
 }
 .footer a{
     color:white;
+}
+.fa-arrow-circle-up{
+    cursor: pointer;
 }

@@ -13,7 +13,18 @@ class MainController extends AbstractController
     public function index()
     {
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
+            'name' => 'Accueil',
+        ]);
+    }
+
+
+    /**
+     * @Route("/concept", name="concept")
+     */
+    public function concept()
+    {
+        return $this->render('main/concept.html.twig', [
+            'name' => 'Le concept',
         ]);
     }
 }

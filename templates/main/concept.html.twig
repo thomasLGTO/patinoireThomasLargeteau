@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{name}}{% endblock %}
+
+{% block body %}
+    <div style="background-image: url({{ asset('images/concept.jpg') }});" class="box my-5">
+        <div class="opaquefilter"></div>
+        <h1 class="titleH1 position-absolute">{{name}}</h1>
+    </div>
+    <div class="container">
+        <div class="row no-gutters">
+            <h2>C'est quoi un tips ?</h2>
+            <p class="col-lg-10 ">Un tips est une astuce simple et efficace pour résoudre un problème récurrent. 
+            Vous savez cette idée toute bête, toute simple et qui pourtant vous facilite 
+            tellement la vie !
+            Les Tips nous permettent de gagner du temps, d’améliorer notre comportement face aux difficultés répétitives.
+            Souvent au premier abord un tips paraît être une idée simple et évidente, pourtant lorsque nous la connaissant pas on ne la trouve pas forcément. Ne cherchez plus, les tips que vous avez besoin sont ici, et si vous ne trouvez pas ce que vous cherchez, créez votre propre tips à partager.
+            </p>
+            <h2>Pourquoi ce site ?</h2>
+            <div class="textbox row justify-content-between no-gutters">
+                <p class="col-lg-7 ">L’idée de ce site vient d’un constat très simple, nous rencontrons régulièrement les mêmes problématiques sans forcément prendre le temps de trouver une solution qui nous convient.
+                Le but est de nous faire grandir, pour améliorer son quotidien, devenir une meilleure version de soi même, pour ne pas répéter les mêmes erreurs.
+                Une liste des Tips par catégories vous permet de vous y retrouver ainsi qu’une barre de recherche pour trouver ce dont vous avez besoin.
+                </p>
+                <img src="{{ asset('images/ski.jpg') }}" alt="" class="col-lg-4 rounded mb-5">
+                <h2>Ce que vous ne trouverez pas sur ce site</h2>
+                <img src="{{ asset('images/goutte.jpg') }}" alt="" class="col-lg-4 rounded mt-5">
+                <p class="col-lg-7 mt-5">Pas de jugement, pour chaque tips vous pouvez uniquement signaler si vous l’utilisez. Pas de possibilités de dire si vous trouvez ce tips “nul” ou génial le classement des tips les plus utilisées sans chargera pour vous. De même les tips de type tuto ou tirer d’une étude… ne seront pas acceptés. Un tips est court,clair et simple.
+                Faite également preuve de discernement à leurs lecture, ils sont la représentation de ce qui marche pour quelqu’un, il n’y a pas de véracité dans ces propos, à chacun de juger et prendre ses responsabilitées quand à leurs l’utilisations.
+                </p>         
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
