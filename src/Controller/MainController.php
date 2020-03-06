@@ -14,6 +14,7 @@ class MainController extends AbstractController
     {
         return $this->render('main/index.html.twig', [
             'name' => 'Accueil',
+            'picture'=>'pictureHome'
         ]);
     }
 
@@ -25,6 +26,7 @@ class MainController extends AbstractController
     {
         return $this->render('main/concept.html.twig', [
             'name' => 'Le concept',
+            'picture'=>'concept'
         ]);
     }
 }

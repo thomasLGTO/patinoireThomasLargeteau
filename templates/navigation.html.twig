@@ -10,12 +10,16 @@
       <div class="navbar-nav justify-content-between">
         <div class="boxnav d-flex">
           <a class="nav-item nav-link mx-3 " href="{{ path('concept') }}">Le concept <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link mx-3" href="#">Categories</a>
+          <a class="nav-item nav-link mx-3" href="{{ path('category_index') }}">Categories</a>
           <a class="nav-item nav-link mx-3" href="#">Top 100</a>
         </div>
         <a class="nav-item nav-link" href="#"><span class="fa fa-user  mr-2"></span>Connexion</a>
       </div>
     </div>
   </div>
-  
 </nav>
+
+<div style="background-image: url({{ asset('images/'~picture~'.jpg') }});" class="box my-5">
+    <div class="opaquefilter"></div>
+    <h1 class="Middletitle position-absolute">{{name}}</h1>
+</div>
