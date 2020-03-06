@@ -96,6 +96,12 @@ nav a:hover{
     position: relative;
     color:var(--color_fonce);
 }
+@media screen and (max-width: 992px){
+    .boxImageCategory img{
+        width: 100%;
+        height: 250px;
+    }
+}
 
 /* ===============Footer=================== */
 

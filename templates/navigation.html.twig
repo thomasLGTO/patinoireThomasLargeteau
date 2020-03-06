@@ -3,7 +3,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="container">
-    <a class="logo position-absolute " href="#">
+    <a class="logo position-absolute " href="{{ path('main') }}">
       <img src="{{ asset('images/logo.png') }}" width="200" height="200"  alt="Logo">
     </a>
     <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
@@ -18,8 +18,3 @@
     </div>
   </div>
 </nav>
-
-<div style="background-image: url({{ asset('images/'~picture~'.jpg') }});" class="box my-5">
-    <div class="opaquefilter"></div>
-    <h1 class="Middletitle position-absolute">{{name}}</h1>
-</div>
