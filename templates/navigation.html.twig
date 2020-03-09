@@ -4,7 +4,7 @@
   </button>
   <div class="container">
     <a class="logo position-absolute " href="{{ path('main') }}">
-      <img src="{{ asset('images/logo.png') }}" width="200" height="200"  alt="Logo">
+      <img src="{{ asset('images/logo.png') }}" width="80" height="80"  alt="Logo">
     </a>
     <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
       <div class="navbar-nav justify-content-between">
@@ -13,7 +13,12 @@
           <a class="nav-item nav-link mx-3" href="{{ path('category_index') }}">Categories</a>
           <a class="nav-item nav-link mx-3" href="#">Top 100</a>
         </div>
-        <a class="nav-item nav-link" href="#"><span class="fa fa-user  mr-2"></span>Connexion</a>
+        {% if not app.user %}
+        <a class="nav-item nav-link" href="{{ path('app_login') }}"><span class="fa fa-user mr-2"></span>Connexion</a>
+        {% else %}
+        <a class="nav-item nav-link" href="{{ path('app_logout') }}"><span class="fa fa-sign-out mr-2"></span>Déconnexion</a>
+        {% endif %}
+        
       </div>
     </div>
   </div>
