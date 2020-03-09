@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="d-flex flex-column">
+        <small class="my-4">* obligatoire</small>
+        <div>
+            <input type="checkbox" required id="scales" name="scales"
+            checked>
+            <label for="scales">J'accepte les conditions générales d'utilisation</label>
+        </div>
+        <button class="btn btn-success mt-3">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

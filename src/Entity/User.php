@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -38,6 +40,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tips", mappedBy="users")
+     */
+    private $tips;
+
+    public function __construct()
+    {
+        $this->tips = new ArrayCollection();
+    }
     
 
     public function getId(): ?int
@@ -116,5 +128,33 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Tips[]
+     */
+    public function getTips(): Collection
+    {
+        return $this->tips;
+    }
+
+    public function addTip(Tips $tip): self
+    {
+        if (!$this->tips->contains($tip)) {
+            $this->tips[] = $tip;
+            $tip->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTip(Tips $tip): self
+    {
+        if ($this->tips->contains($tip)) {
+            $this->tips->removeElement($tip);
+            $tip->removeUser($this);
+        }
+
+        return $this;
     }
 }

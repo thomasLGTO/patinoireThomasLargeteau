@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tips index{% endblock %}
+
+{% block body %}
+    <h1>Tips index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TitleTips</th>
+                <th>CreatedAt</th>
+                <th>Keywords</th>
+                <th>ContentTips</th>
+                <th>Status</th>
+                <th>RefusalReason</th>
+                <th>Image</th>
+                <th>NumberUsers</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tip in tips %}
+            <tr>
+                <td>{{ tip.id }}</td>
+                <td>{{ tip.titleTips }}</td>
+                <td>{{ tip.createdAt ? tip.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tip.keywords }}</td>
+                <td>{{ tip.contentTips }}</td>
+                <td>{{ tip.status }}</td>
+                <td>{{ tip.refusalReason }}</td>
+                <td>{{ tip.image }}</td>
+                <td>{{ tip.numberUsers }}</td>
+                <td>
+                    <a href="{{ path('tips_show', {'id': tip.id}) }}">show</a>
+                    <a href="{{ path('tips_edit', {'id': tip.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('tips_new') }}">Create new</a>
+{% endblock %}
