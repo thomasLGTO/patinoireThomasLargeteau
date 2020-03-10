@@ -37,6 +37,8 @@ class TipsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $tip->addUser($this->getUser());
+            $tip->setNumberUsers(1);
             $tip->setCreatedAt(new \DateTime());
             $tip->setStatus('en attente');
             $entityManager = $this->getDoctrine()->getManager();
