@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class TipsType extends AbstractType
 {
@@ -35,9 +36,15 @@ class TipsType extends AbstractType
                 'label' => 'Le tips *',
                 'required'=>true,
             ])
-            ->add('image', FileType::class,[
-                'required'=>false,
-                'label'=>"Joindre des photos "
+            ->add('imageFile', VichImageType::class, [
+                'label'=> 'joindre des photos',
+                'required' => false,
+                'allow_delete' => false,
+                'download_label' => '...',
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => true,
+                
             ])
             ->add('category', EntityType::class, [  
                 'label' => 'Catégories *',   

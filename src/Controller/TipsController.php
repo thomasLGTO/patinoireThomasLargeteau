@@ -81,6 +81,8 @@ class TipsController extends AbstractController
         return $this->render('tips/edit.html.twig', [
             'tip' => $tip,
             'form' => $form->createView(),
+            'name' => 'Accueil',
+            'picture'=>'pictureHome'
         ]);
     }
 

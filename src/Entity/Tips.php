@@ -5,9 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TipsRepository")
+ * @Vich\Uploadable
  */
 class Tips
 {
@@ -58,20 +61,52 @@ class Tips
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $refusalReason;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $image;
-
+    
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $numberUsers;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $image;
+
+    /** 
+    * @ORM\Column(type="datetime",nullable=true)
+    * @var \ DateTimeInterface | null 
+    */ 
+    private $updatedAt ;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    // ...
+
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -194,11 +229,11 @@ class Tips
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage(?string $image): void
     {
         $this->image = $image;
 
-        return $this;
+        
     }
 
     public function getNumberUsers(): ?int
