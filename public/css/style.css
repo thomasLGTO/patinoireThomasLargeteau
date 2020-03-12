@@ -26,6 +26,7 @@ h2{
 }
 h3{
     font-size: 1.17em;
+    color : var(--color_fonce);
 }
 a{
     color:var(--color_fonce);
@@ -33,16 +34,36 @@ a{
 .btn-primary{
     background-color: var(--color_blue);
 }
+.btn-secondary{
+    background: var(--color_grey);
+    color: var(--color_fonce);
+    border: none;
+}
 .btn-success{
     background: var(--color_green);
     border: none;
+}
+.text-success{
+    color: var(--color_lightgreen);
 }
 .btn-success:hover{
     background: var(--color_green);
     border: none;
 }
+.fa-search{
+    color:var(--color_fonce);
+}
 
+.bg-grey{
+    background: var(--color_grey);
+}
 
+.bg-lightgreen{
+    background: var(--color_lightgreen);
+}
+.bg-green{
+    background: var(--color_green);
+}
 /* ===============Navbar=================== */
 .navbar{
     padding-left: 0;
@@ -100,6 +121,15 @@ nav a:hover{
     transform: translate(-50%, -50%);
     z-index:1;
 }
+.boxTips img{
+    height: 40px;
+}
+.boxIcon{
+    font-size: 1.5em;
+}
+.boxIcon .fa{
+    cursor: pointer;
+}
 /* ===============body index Categorie=================== */
 
 .boxImageCategory img{
@@ -125,6 +155,20 @@ nav a:hover{
 
     width: 100%;
 }
+
+/* ===============body ex : kitchen ( one category )=================== */
+
+.searchBar{
+    background: var(--color_grey);
+}
+.boxCategory{
+    height: 100%;
+}
+.boxCategory li{
+    list-style:none;
+}
+
+
 
 /* ===============Footer=================== */
 

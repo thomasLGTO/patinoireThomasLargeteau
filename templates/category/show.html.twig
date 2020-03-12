@@ -14,33 +14,65 @@
             {% include "navigation.html.twig" %}
         {% endblock %}
         {% block intro %}
-            <div style="background-image: url({{ asset('images/'~category.pictureCategory~'.jpg') }});" class="box my-5">
+            <div style="background-image: url({{ asset('images/'~category.pictureCategory~'.jpg') }});" class="box mb-5">
                 <div class="opaquefilter"></div>
                 <h1 class="Middletitle position-absolute">{{category.nameCategory}}</h1>
             </div>
         {% endblock %}
 {% block body %}
-    <h1>Category</h1>
+    <div class="container">
+        <div class="row justify-content-between no-gutters">
+            <div class="boxAddTips d-flex justify-content-between col-8 mb-5">
+                 <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                <div class="btn btn-secondary"> trier</div>
+            </div>
+            <div class="searchBar rounded col-3 mb-5">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            {# ================ pin up the tips=========== #}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>NameCategory</th>
-                <td>{{ category.nameCategory }}</td>
-            </tr>
-            <tr>
-                <th>PictureCategory</th>
-                <td>{{ category.pictureCategory }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('category_index') }}">back to list</a>
-
+            <div class="allTips d-flex flex-column col-8">
+                {% set i = 0 %}
+                {% for tip in tips %}
+                    {% if (i % 2 == 0)%}
+                        <div class="boxTips rounded p-4  bg-grey">
+                    {% else %}
+                        <div class="boxTips rounded p-4 ">
+                    {% endif %}
+                    {% set i = i + 1 %}
+                        <div class="test d-flex justify-content-between">
+                            <p class="text-success m-0"> {{tip.numberUsers}} utilisateurs </p>
+                            <a class="btn btn-primary d-flex col-4 justify-content-center py-0 px-0">
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo du site (Tips) ">
+                                <p class="align-self-center ml-1 m-0">J'utilise ce Tips</p>
+                            </a>
+                        </div>
+                        <h3>{{tip.titleTips | upper}}</h3>
+                        <p>{{tip.contentTips}}</p>
+                        <div class="boxIcon d-flex justify-content-between mt-4">
+                            <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="boxCategory rounded bg-lightgreen col-3">
+                <h3 class="bg-green text-white p-4 text-center rounded">LES CATEGORIES</h3>
+                <div class="container">
+                    <div class="row">
+                    <ul class="text-center col-12 py-3">
+                    {% for cat in categories %}
+                        <li class="my-1"><a class="text-white"href="{{ path('category_show', {'id': cat.id}) }}">{{cat.nameCategory}}</a></li>                               
+                    {% endfor %}
+                    </ul>
+                    </div>
+                </div>  
+            </div>
+            <td>{{ category.nameCategory }}</td>
+            <td>{{ category.pictureCategory }}</td>
+            <a href="{{ path('category_index') }}">Revenir aux catégories</a>
+        </div>
+    </div>
 {% endblock %}
         {% block footer %}
             {% include "footer.html.twig" %}

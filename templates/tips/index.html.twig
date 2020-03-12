@@ -17,7 +17,9 @@
                 <th>RefusalReason</th>
                 <th>Image</th>
                 <th>NumberUsers</th>
+                <th>Categories</th>
                 <th>actions</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -32,6 +34,7 @@
                 <td>{{ tip.refusalReason }}</td>
                 <td>{{ tip.image }}</td>
                 <td>{{ tip.numberUsers }}</td>
+                <td>{{tip.category.nameCategory}}</td>
                 <td>
                     <a href="{{ path('tips_show', {'id': tip.id}) }}">show</a>
                     <a href="{{ path('tips_edit', {'id': tip.id}) }}">edit</a>

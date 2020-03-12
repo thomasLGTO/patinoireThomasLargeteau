@@ -44,8 +44,7 @@ class TipsType extends AbstractType
                 'download_label' => '...',
                 'download_uri' => false,
                 'image_uri' => false,
-                'asset_helper' => true,
-                
+                'asset_helper' => true,           
             ])
             ->add('category', EntityType::class, [  
                 'label' => 'Catégories *',   
