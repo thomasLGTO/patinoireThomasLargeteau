@@ -59,12 +59,27 @@
                         </div>
                         <h3>{{tip.titleTips | upper}}</h3>
                         <p>{{tip.contentTips}}</p>
-                        <div class="boxIcon d-flex justify-content-between mt-4">
+                        <div class="boxIcon d-flex justify-content-between align-items-end mt-4">
                             {# share on Facebook #}
                             <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v6.0"></script>
                             <div class="fb-share-button" data-href="{{ path('tips_show', {'id': tip.id}) }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.google.fr%2Fmaps&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+                            
+                            {# display the lightbox  #}
+                            {% if tip.image %}
+                                <!-- Button trigger modal -->
+                                <i class="fa fa-camera text-dark" aria-hidden="true" data-toggle="modal" data-target="#{{i}}"></i>
+                                <!-- Modal -->
+                                <div class="modal fade" id="{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <img src='{{ asset('images/products/'~tip.image~' ') }}' alt="Image associée au tips">                   
+                                        </div>
+                                    </div>
+                                </div>    
+                            {% else %}
+                                <i class="fa fa-camera text-dark-grey" aria-hidden="true"></i>
+                            {% endif %}
                             {#  #}
-                            <i class="fa fa-camera" aria-hidden="true"></i>
                         </div>
                     </div>
                 {% endfor %}
