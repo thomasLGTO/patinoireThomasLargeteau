@@ -60,7 +60,10 @@
                         <h3>{{tip.titleTips | upper}}</h3>
                         <p>{{tip.contentTips}}</p>
                         <div class="boxIcon d-flex justify-content-between mt-4">
-                            <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                            {# share on Facebook #}
+                            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v6.0"></script>
+                            <div class="fb-share-button" data-href="{{ path('tips_show', {'id': tip.id}) }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.google.fr%2Fmaps&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+                            {#  #}
                             <i class="fa fa-camera" aria-hidden="true"></i>
                         </div>
                     </div>
@@ -82,9 +85,6 @@
                     </div>
                 </div>  
             </div>
-            <td>{{ category.nameCategory }}</td>
-            <td>{{ category.pictureCategory }}</td>
-            <a href="{{ path('category_index') }}">Revenir aux catégories</a>
         </div>
     </div>
 {% endblock %}

@@ -64,6 +64,12 @@ a{
 .bg-green{
     background: var(--color_green);
 }
+.pagination .active .page-link{
+    background: var(--color_blue);
+}
+.pagination .page-link{
+    color :var(--color_blue);
+}
 /* ===============Navbar=================== */
 .navbar{
     padding-left: 0;
