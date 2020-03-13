@@ -73,19 +73,46 @@ class TipsController extends AbstractController
     {
         $form = $this->createForm(TipsType::class, $tip);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('tips_index');
         }
-
         return $this->render('tips/edit.html.twig', [
             'tip' => $tip,
             'form' => $form->createView(),
             'name' => 'Modifier le tips',
             'picture'=>'pictureHome'
         ]);
+    }
+
+    /**
+     * @Route("/{id}/newUser", name="tips_newUser",methods={"USETIPS"})
+     */
+    public function newUSer(Request $request, Tips $tip): Response
+    {
+        $users=$tip->getUsers();
+        $j=0;
+        
+        // add user when the button " j'utilise ce tips " is on click
+            foreach ($users->toArray() as $user){
+                if ($user == $this->getUser()){
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $tip->removeUser($this->getUser());
+                    $tip->setNumberUsers($tip->getNumberUsers()-1);
+                    $entityManager->flush();
+                    $j=1;
+                    break;
+                } 
+           }
+           if ($j ==1){}
+           else if ($this->isCsrfTokenValid('usetips'.$tip->getId(), $request->request->get('_token')) && $this->getUser()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $tip->addUser($this->getUser());
+            $tip->setNumberUsers($tip->getNumberUsers()+1);
+            $entityManager->flush();
+        }
+    
+        return $this->redirectToRoute('tips_index');
     }
 
     /**
