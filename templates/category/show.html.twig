@@ -33,8 +33,17 @@
         </div>
             
             <div class="boxAddTips d-flex justify-content-between col-8 mb-5">
-                 <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
-                <div class="btn btn-secondary"> trier</div>
+                <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Trier
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ path('category_show', {'id': category.id})}}?a=1">Le + d'utilisateurs</a>
+                        <a class="dropdown-item" href="{{ path('category_show', {'id': category.id})}}?a=2">Les + récents</a>
+                        <a class="dropdown-item" href="{{ path('category_show', {'id': category.id})}}">Les + anciens</a>
+                    </div>
+                    </div>
             </div>
             <div class="searchBar rounded col-3 mb-5">
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -43,14 +52,26 @@
 
             <div class="allTips d-flex flex-column col-8">
                 {% set i = 0 %}
-                {% for tip in pagination %}
+
+                {# sorting system : I get the variable passed in the url#}
+                {% set sort = '' %}
+                {% set a = app.request.query.get('a') %}
+                {% if a == 1 %}
+                    {% set sort = descendingOrderUsers %}
+                {% elseif a == 2 %}
+                    {% set sort = descendingOrderDate %}
+                {% else %}
+                    {% set sort = pagination %}
+                {% endif %}
+                {% for tip in sort %}
+                {#  #}
+
                     {% if (i % 2 == 0)%}
                         <div class="boxTips rounded p-4  bg-grey">
                     {% else %}
                         <div class="boxTips rounded p-4 ">
                     {% endif %}
                     {% set i = i + 1 %}
-                    
                         <div class="d-flex justify-content-between">
                             <p class="text-success m-0"> {{tip.numberUsers}} utilisateurs </p>
                             <form  class="col-4"method="post" action="{{ path('tips_newUser', {'id': tip.id}) }}" onsubmit="return confirm('Vous utilisez ce tips ?');">

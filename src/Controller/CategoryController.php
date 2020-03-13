@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\TipsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,10 +35,28 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id}", name="category_show", methods={"GET"})
      */
-    public function show(Category $category, CategoryRepository $categoryRepository,PaginatorInterface $paginator,Request $request): Response
+    public function show(Category $category, CategoryRepository $categoryRepository, TipsRepository $tipsRepository, PaginatorInterface $paginator,Request $request): Response
     {
         $pagination = $paginator->paginate(
-            $category->getTips(), /* query NOT result */
+            $tipsRepository->findBy(
+                ['category'=> $category]
+            ), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
+        $descendingOrderUsers = $paginator->paginate(
+            $tipsRepository->findBy(
+                ['category'=> $category],
+                ['numberUsers'=>'desc']
+            ), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
+        $descendingOrderDate = $paginator->paginate(
+            $tipsRepository->findBy(
+                ['category'=> $category],
+                ['createdAt'=>'desc']
+            ), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             2 /*limit per page*/
         );
@@ -49,6 +68,8 @@ class CategoryController extends AbstractController
                 ['nameCategory' => 'ASC']
             ),
             'pagination' => $pagination,
+            'descendingOrderUsers'=>$descendingOrderUsers,
+            'descendingOrderDate'=>$descendingOrderDate,
             'user'=>$user
         ]);
     }
