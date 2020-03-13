@@ -41,13 +41,15 @@ class CategoryController extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             2 /*limit per page*/
         );
+        $user=$this->getUser();
         return $this->render('category/show.html.twig', [
             'category' => $category,
             'categories' => $categoryRepository->findBy(
                 [],
                 ['nameCategory' => 'ASC']
             ),
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'user'=>$user
         ]);
     }
 }

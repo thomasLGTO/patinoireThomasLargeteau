@@ -71,6 +71,7 @@ class TipsController extends AbstractController
      */
     public function edit(Request $request, Tips $tip): Response
     {
+        dump($tip->getCategory()->getId());
         $form = $this->createForm(TipsType::class, $tip);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,8 +92,7 @@ class TipsController extends AbstractController
     public function newUSer(Request $request, Tips $tip): Response
     {
         $users=$tip->getUsers();
-        $j=0;
-        
+        $j=0; 
         // add user when the button " j'utilise ce tips " is on click
             foreach ($users->toArray() as $user){
                 if ($user == $this->getUser()){
@@ -104,15 +104,14 @@ class TipsController extends AbstractController
                     break;
                 } 
            }
-           if ($j ==1){}
+           if ($j == 1){}
            else if ($this->isCsrfTokenValid('usetips'.$tip->getId(), $request->request->get('_token')) && $this->getUser()) {
             $entityManager = $this->getDoctrine()->getManager();
             $tip->addUser($this->getUser());
             $tip->setNumberUsers($tip->getNumberUsers()+1);
             $entityManager->flush();
-        }
-    
-        return $this->redirectToRoute('tips_index');
+        } 
+        return $this->redirectToRoute('category_show',array('id'=>$tip->getCategory()->getId()));
     }
 
     /**
