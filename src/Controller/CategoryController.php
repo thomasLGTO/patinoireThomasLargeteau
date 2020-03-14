@@ -44,6 +44,7 @@ class CategoryController extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             2 /*limit per page*/
         );
+        // $test=$pagination->getitems()[0];
         $descendingOrderUsers = $paginator->paginate(
             $tipsRepository->findBy(
                 ['category'=> $category],

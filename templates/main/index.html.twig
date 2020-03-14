@@ -3,5 +3,8 @@
 {% block title %}{{name}}{% endblock %}
 
 {% block body %}
-
+    <form action="{{ path('recherche') }}" method="post">
+        <input type="text" name='Recherche'>
+        <button type="submit">enregistrer</button>
+    </form>
 {% endblock %}

@@ -79,8 +79,8 @@
                                 <input type="hidden" name="_token" value="{{ csrf_token('usetips' ~ tip.id) }}">
                                 {# the button color changes if i use the tips #}
                                 {% set flag = 0 %}
-                                {% for test in tip.users %}
-                                    {% if test == user %}
+                                {% for useTips in tip.users %}
+                                    {% if useTips == user %}
                                         {% set flag = 1 %}
                                     {% endif %}
                                 {% endfor %}
