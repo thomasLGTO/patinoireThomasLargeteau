@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SearchBarType;
 use App\Repository\TipsRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,11 +37,14 @@ class MainController extends AbstractController
 
 
     /**
-     * @Route("/recherche", name="recherche")
+     * @Route("/recherche", name="search")
      */
-    public function newsearch(Request $request,TipsRepository $tipsRepository): Response
+    public function newsearch(Request $request,TipsRepository $tipsRepository , PaginatorInterface $paginator): Response
     {
-        $tips = $tipsRepository->findAll();
+        $tips = $tipsRepository->findBy(
+            [],
+            ['numberUsers'=>'desc']
+        );
         // dump($tips[0]->getKeywords());
         // dump($request->request->get('Recherche'));
         $wordsSearched = $request->request->get('Recherche');
@@ -50,10 +54,17 @@ class MainController extends AbstractController
                 $sortTips[]=$tips[$i];
             }
         }
-        return $this->render('searchbar.html.twig', [
-            'name' => 'Accueil',
-            'picture'=>'pictureHome',
-            'sortTips'=>$sortTips
+        $pagination = $paginator->paginate(
+            $sortTips, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            100 /*limit per page*/
+        );
+        $user=$this->getUser();
+        return $this->render('main/search.html.twig', [
+            'name' => 'Résultat de la recherche',
+            'picture'=>'search',
+            'pagination'=>$pagination,
+            'user'=>$user
         ]);
     }
 }

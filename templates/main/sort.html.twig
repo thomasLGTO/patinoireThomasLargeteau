@@ -1,0 +1,21 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Trier
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{{ path('category_show', {'id': category.id})}}?a=1">Le + d'utilisateurs</a>
+        <a class="dropdown-item" href="{{ path('category_show', {'id': category.id})}}?a=2">Les + récents</a>
+        <a class="dropdown-item" href="{{ path('category_show', {'id': category.id})}}">Les + anciens</a>
+        {# sorting system : I get the variable passed in the url#}
+        {% set sort = '' %}
+        {% set a = app.request.query.get('a') %}
+        {% if a == 1 %}
+            {% set sort = descendingOrderUsers %}
+        {% elseif a == 2 %}
+            {% set sort = descendingOrderDate %}
+        {% else %}
+            {% set sort = pagination %}
+        {% endif %}
+        {#  #}
+    </div>
+</div>

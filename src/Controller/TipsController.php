@@ -28,7 +28,7 @@ class TipsController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="tips_new", methods={"GET","POST"})
+     * @Route("/nouveau", name="tips_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -71,7 +71,7 @@ class TipsController extends AbstractController
      */
     public function edit(Request $request, Tips $tip): Response
     {
-        dump($tip->getCategory()->getId());
+        // dump($tip->getCategory()->getId());
         $form = $this->createForm(TipsType::class, $tip);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

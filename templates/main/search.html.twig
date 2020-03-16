@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{name}}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-between no-gutters">
+            {% if pagination is empty %}
+                <p class="text-center my-5 col-12">Pas de résultats pour votre recherche</p>
+            {% endif %}
+            <div class="boxAddTips d-flex justify-content-between col-8 mb-5">
+                <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+            </div>
+            {% include("main/searchBar.html.twig") %}
+            {{ include("tips/boxTips.html.twig",{sort : pagination}) }}
+            {{ render(controller(
+                'App\\Controller\\CategoryController::listCategory'
+            )) }}
+        </div>
+    </div>
+{% endblock %}
+    
+

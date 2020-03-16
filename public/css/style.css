@@ -174,9 +174,6 @@ nav a:hover{
 
 /* ===============body ex : kitchen ( one category )=================== */
 
-.searchBar{
-    background: var(--color_grey);
-}
 .boxCategory{
     height: 100%;
 }

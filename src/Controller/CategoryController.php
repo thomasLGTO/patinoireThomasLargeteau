@@ -32,6 +32,17 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    
+    public function listCategory(CategoryRepository $categoryRepository): Response
+    {
+        return $this->render('category/boxCategory.html.twig', [
+            'categories' => $categoryRepository->findBy(
+                [],
+                ['nameCategory' => 'ASC']
+            ),
+        ]);
+    }
+
     /**
      * @Route("/{id}", name="category_show", methods={"GET"})
      */
@@ -74,4 +85,6 @@ class CategoryController extends AbstractController
             'user'=>$user
         ]);
     }
+
+    
 }

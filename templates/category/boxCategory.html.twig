@@ -1,0 +1,12 @@
+<div class="boxCategory rounded bg-lightgreen col-3">
+    <h3 class="bg-green text-white p-4 text-center rounded">LES CATEGORIES</h3>
+    <div class="container">
+        <div class="row">
+        <ul class="text-center col-12 py-3">
+        {% for cat in categories %}
+            <li class="my-1"><a class="text-white"href="{{ path('category_show', {'id': cat.id}) }}">{{cat.nameCategory}}</a></li>                               
+        {% endfor %}
+        </ul>
+        </div>
+    </div>
+</div>
