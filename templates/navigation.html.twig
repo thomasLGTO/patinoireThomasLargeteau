@@ -13,11 +13,14 @@
           <a class="nav-item nav-link mx-3" href="{{ path('category_index') }}">Categories</a>
           <a class="nav-item nav-link mx-3" href="#">Top 100</a>
         </div>
-        {% if not app.user %}
-        <a class="nav-item nav-link" href="{{ path('app_login') }}"><span class="fa fa-user mr-2"></span>Connexion</a>
-        {% else %}
-        <a class="nav-item nav-link" href="{{ path('app_logout') }}"><span class="fa fa-sign-out mr-2"></span>Déconnexion</a>
-        {% endif %}
+        <div class="d-flex">
+          {% if not app.user %}
+            <a class="nav-item nav-link" href="{{ path('app_login') }}"><span class="fa fa-user mr-2"></span>Connexion</a>
+          {% else %}
+            <a class="nav-item nav-link" href="{{ path('myAccount') }}"><span class="fa fa-user mr-2"></span>Mon compte</a>
+            <a class="nav-item nav-link ml-3" href="{{ path('app_logout') }}"><span class="fa fa-sign-out mr-2"></span>Déconnexion</a>
+          {% endif %}
+        </div>
         
       </div>
     </div>

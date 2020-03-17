@@ -50,9 +50,11 @@ class MainController extends AbstractController
         $wordsSearchedChecked = $request->request->get('Recherche');
         $wordsSearched=htmlspecialchars($wordsSearchedChecked);
         $sortTips =[];
-        for ($i=0;$i<count($tips);$i++){
-            if(stristr($tips[$i]->getKeywords(), $wordsSearched)) {
-                $sortTips[]=$tips[$i];
+        if (empty($wordsSearchedChecked) == false ){
+            for ($i=0;$i<count($tips);$i++){
+                if(stristr($tips[$i]->getKeywords(), $wordsSearched)) {
+                    $sortTips[]=$tips[$i];
+                }
             }
         }
         $pagination = $paginator->paginate(

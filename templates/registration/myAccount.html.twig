@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{name}}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <a href="{{ path('tips_new') }}" class="btn btn-primary px-5 mb-5">Ajouter un tips</a>
+    <div class="row">
+        <div class="row col-12 mb-5">
+            {% for category in categories %}
+                <a class="boxImageCategory col-6 col-lg-2 mb-4" href="{{ path('category_show', {'id': category.id}) }}">
+                    {% set i = 0 %}
+                    {# pin up the numbers of tips in the category #}
+                    {% for tip in tabTips %}
+                        {% if tip.category.id == category.id %}
+                            {% set i = i + 1 %}
+                        {% endif %}  
+                    {% endfor %} 
+                    <h3>{{ category.nameCategory }} {{i}}</h3>  
+                    <img class="rounded " src='{{ asset('images/'~category.pictureCategory~'.jpg') }}' alt="Image des catégories">     
+                </a>  
+            {% endfor %}
+        </div>
+        {# ================ pin up no active tips===========  #}
+            {% if noActiveTips is empty %}
+            {% else %}    
+                <h3 class="col-12 mt-0 mb-5">Tips non validés</h3>
+                <div class="allTips d-flex flex-column col-lg-8">
+                    {% set i = 0 %}
+                    {% for tip in noActiveTips %}
+                        {% if (i % 2 == 0)%}
+                        <div class="boxTips rounded p-4  bg-grey">
+                        {% else %}
+                        <div class="boxTips rounded p-4 ">
+                        {% endif %}
+                            {% set i = i + 1 %}
+                            <div class="d-flex justify-content-between">
+                                {% if (tip.status ==    'en attente') %}
+                                    <p class="text-success m-0"> {{tip.status}} de validation  </p>
+                                {% else %}
+                                    <p class="text-danger m-0"> {{tip.status}} <br> Motif  : {{tip.refusalReason}} </p>
+                                {% endif %}
+                                <div class="col-4">
+                                    <a href="{{ path('tips_edit', {'id': tip.id}) }}" class="btn btn-primary col-12 d-flex justify-content-center py-0 px-0 m-0">
+                                        <img src="{{ asset('images/logo.png') }}" alt="Logo du site (Tips) ">
+                                        <p class="align-self-center ml-1 m-0">Corriger ce Tips</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <h3 class="mt-3">{{tip.titleTips | upper}}</h3>
+                            <p>{{tip.contentTips}}</p>
+                            <div class="boxIcon d-flex justify-content-end align-items-end mt-4">
+                                {# display the lightbox  #}
+                                {% if tip.image %}
+                                    <!-- Button trigger modal -->
+                                    <i class="fa fa-camera text-dark" aria-hidden="true" data-toggle="modal" data-target="#{{i}}"></i>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <img src='{{ asset('images/products/'~tip.image~' ') }}' alt="Image associée au tips">                   
+                                            </div>
+                                        </div>
+                                    </div>    
+                                {% else %}
+                                    <i class="fa fa-camera text-dark-grey" aria-hidden="true"></i>
+                                {% endif %}
+                                {#  #}
+                            </div>
+                        </div>
+                    {% endfor %}                
+                </div>
+            {% endif %}
+    </div>
+</div>
+    
+{% endblock %}
