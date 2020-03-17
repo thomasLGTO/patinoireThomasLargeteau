@@ -7,3 +7,17 @@ for ( let i=0;i<btn_ride_up.length;i++){
         window.scroll(0,0);
     }
 }
+
+//=================refuse a tips =========================
+
+const refuse=document.querySelectorAll('.refuse');
+const boxRefuse=document.querySelectorAll('.boxRefuse');
+
+for(refus of refuse){
+    refus.addEventListener('click',tipsRefuse);
+}
+
+function tipsRefuse(){
+    let monIndex = this.dataset.index;
+        boxRefuse[monIndex-1].classList.toggle("d-none");
+}

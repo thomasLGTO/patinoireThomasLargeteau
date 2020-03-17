@@ -47,7 +47,8 @@ class MainController extends AbstractController
         );
         // dump($tips[0]->getKeywords());
         // dump($request->request->get('Recherche'));
-        $wordsSearched = $request->request->get('Recherche');
+        $wordsSearchedChecked = $request->request->get('Recherche');
+        $wordsSearched=htmlspecialchars($wordsSearchedChecked);
         $sortTips =[];
         for ($i=0;$i<count($tips);$i++){
             if(stristr($tips[$i]->getKeywords(), $wordsSearched)) {

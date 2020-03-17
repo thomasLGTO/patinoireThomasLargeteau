@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{name}}{% endblock %}
+{% block body %}
+    <div class="container">
+        <p>Tips non actif</p>  
+        <div class="row justify-content-between no-gutters">
+
+            {# ================ pin up the boxtips=========== #}
+
+            <div class="allTips d-flex flex-column col-lg-8">
+                {% set i = 0 %}
+
+                {% for tip in unvalidTips %}
+                
+                    {% if (i % 2 == 0)%}
+                    <div class="boxTips rounded p-4  bg-grey">
+                    {% else %}
+                    <div class="boxTips rounded p-4 ">
+                    {% endif %}
+                        {% set i = i + 1 %}
+                        {% if tip.status == 'en attente' %}
+                            <div class="d-flex justify-content-end">
+                                <form  class="col-4"method="post" 
+                                        action="{{ path('validTips', {'id': tip.id}) }}">
+                                    <input type="hidden" name="_method" value="VALIDTIPS">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('validtips' ~ tip.id) }}">
+                                    <button class="btn btn-primary col-12 d-flex justify-content-center py-0 px-0 m-0">
+                                        <img src="{{ asset('images/logo.png') }}" alt="Logo du site (Tips) ">
+                                        <p class="align-self-center ml-1 m-0">Valider ce Tips</p>
+                                    </button>
+                                </form>
+                                <button class="btn refuse btn-danger col-4 d-flex justify-content-center py-0 px-0 m-0" data-index="{{i}}">
+                                        <img src="{{ asset('images/logo.png') }}" alt="Logo du site (Tips) ">
+                                        <p class="align-self-center ml-1 m-0">Refuser ce Tips</p>
+                                </button>
+                            </div>
+                        {% endif %}
+                        <h3>{{tip.titleTips | upper}}</h3>
+                        <p>{{tip.contentTips}}</p>
+                        <p>Les mots clès : {{tip.keywords}}</p>
+                        <div class="col-12 d-none boxRefuse">
+                            <p>Motif de refus :</p>
+                            <form class="col-3 mb-5 d-flex"action="{{ path('moderation') }}" method="post">
+                            <input class="rounded-left border-2 " type="text" name='reasonRefuse' required >
+                            <input  type="hidden" name='tipsId' value="{{tip.id}}" >
+                            <button class="border-0 rounded-right" type="submit">Envoyer</button>
+                            </form>
+                        </div>
+                        
+
+                        <div class="boxIcon d-flex justify-content-end align-items-end mt-4">
+                            
+                            {# display the lightbox  #}
+                            {% if tip.image %}
+                                <!-- Button trigger modal -->
+                                <i class="fa fa-camera text-dark" aria-hidden="true" data-toggle="modal" data-target="#{{i}}"></i>
+                                <!-- Modal -->
+                                <div class="modal fade" id="{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <img src='{{ asset('images/products/'~tip.image~' ') }}' alt="Image associée au tips">                   
+                                        </div>
+                                    </div>
+                                </div>    
+                            {% else %}
+                                <i class="fa fa-camera text-dark-grey" aria-hidden="true"></i>
+                            {% endif %}
+                            {#  #}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>   
+        </div> 
+    </div>
+{% endblock %}
