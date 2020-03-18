@@ -33,7 +33,11 @@
             </div>
             
             <div class="boxAddTips d-flex justify-content-between col-8 mb-5">
-                <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                {% if not app.user %}
+                    <a href="{{ path('app_login') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                {% else %}
+                    <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                {% endif %}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Trier

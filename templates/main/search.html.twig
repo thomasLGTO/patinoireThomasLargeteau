@@ -8,7 +8,11 @@
                 <p class="text-center my-5 col-12">Pas de résultats pour votre recherche</p>
             {% endif %}
             <div class="boxAddTips d-flex justify-content-between col-8 mb-5">
-                <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                {% if not app.user %}
+                    <a href="{{ path('app_login') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                {% else %}
+                    <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                {% endif %}
             </div>
             {% include("main/searchBar.html.twig") %}
             {{ include("tips/boxTips.html.twig",{sort : pagination}) }}

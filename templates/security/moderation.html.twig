@@ -27,12 +27,12 @@
                                     <input type="hidden" name="_token" value="{{ csrf_token('validtips' ~ tip.id) }}">
                                     <button class="btn btn-primary col-12 d-flex justify-content-center py-0 px-0 m-0">
                                         <img src="{{ asset('images/logo.png') }}" alt="Logo du site (Tips) ">
-                                        <p class="align-self-center ml-1 m-0">Valider ce Tips</p>
+                                        <p class="align-self-center ml-1 m-0 text-white">Valider ce Tips</p>
                                     </button>
                                 </form>
                                 <button class="btn refuse btn-danger col-4 d-flex justify-content-center py-0 px-0 m-0" data-index="{{i}}">
                                         <img src="{{ asset('images/logo.png') }}" alt="Logo du site (Tips) ">
-                                        <p class="align-self-center ml-1 m-0">Refuser ce Tips</p>
+                                        <p class="align-self-center ml-1 m-0 text-white">Refuser ce Tips</p>
                                 </button>
                             </div>
                         {% endif %}
