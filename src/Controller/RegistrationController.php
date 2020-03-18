@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Category;
 use App\Form\RegistrationFormType;
 use App\Repository\TipsRepository;
 use App\Repository\UserRepository;
 use App\Repository\CategoryRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Security\UserConnexionAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,7 +61,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/mon_compte", name="myAccount")
      */
-    public function viewAccount(UserRepository $userRepository, CategoryRepository $categoryRepository, TipsRepository $tipsRepository): Response
+    public function viewAccount(CategoryRepository $categoryRepository, TipsRepository $tipsRepository): Response
     {
         $user=$this->getuser();
         $tips=$user->getTips();
@@ -74,9 +76,42 @@ class RegistrationController extends AbstractController
         return $this->render('registration/myAccount.html.twig', [
             'picture'=>'monCompte',
             'name'=>'Mon compte',
-            'categories'=>$categoryRepository->findAll(),
+            'categories' => $categoryRepository->findBy(
+                [],
+                ['nameCategory' => 'ASC']
+            ),
             'tabTips'=>$tabTips,
             'noActiveTips'=>$noActiveTips,
+            'user'=>$user
+        ]);
+    }
+
+    /**
+     * @Route("/mon_compte/{id}", name="myTips")
+     */
+    public function viewMyTips(Category $category,Request $request, PaginatorInterface $paginator, CategoryRepository $categoryRepository, TipsRepository $tipsRepository): Response
+    {
+        $user=$this->getuser();
+        $tips=$user->getTips();
+        $tabTips=[];
+        foreach ($tips->toArray() as $tip){
+            if($tip->getCategory()->getId() == $category->getId()){
+                array_push($tabTips,$tip);
+            }            
+        } 
+        $pagination = $paginator->paginate(
+            $tabTips, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
+
+        return $this->render('registration/myTips.html.twig', [
+            'category' => $category,
+            'categories' => $categoryRepository->findBy(
+                [],
+                ['nameCategory' => 'ASC']
+            ),
+            'pagination'=>$pagination,
             'user'=>$user
         ]);
     }

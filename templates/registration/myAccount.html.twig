@@ -8,7 +8,7 @@
     <div class="row">
         <div class="row col-12 mb-5">
             {% for category in categories %}
-                <a class="boxImageCategory col-6 col-lg-2 mb-4" href="{{ path('category_show', {'id': category.id}) }}">
+                <a class="boxImageCategory col-6 col-lg-2 mb-4" href="{{ path('myTips', {'id': category.id}) }}">
                     {% set i = 0 %}
                     {# pin up the numbers of tips in the category #}
                     {% for tip in tabTips %}
@@ -24,7 +24,7 @@
         {# ================ pin up no active tips===========  #}
             {% if noActiveTips is empty %}
             {% else %}    
-                <h3 class="col-12 mt-0 mb-5">Tips non validés</h3>
+                <p class="col-12 mt-0 mb-5 fontBigger">Tips que vous avez créé mais pas encore validés</p>
                 <div class="allTips d-flex flex-column col-lg-8">
                     {% set i = 0 %}
                     {% for tip in noActiveTips %}
@@ -43,7 +43,7 @@
                                 <div class="col-4">
                                     <a href="{{ path('tips_edit', {'id': tip.id}) }}" class="btn btn-primary col-12 d-flex justify-content-center py-0 px-0 m-0">
                                         <img src="{{ asset('images/logo.png') }}" alt="Logo du site (Tips) ">
-                                        <p class="align-self-center ml-1 m-0">Corriger ce Tips</p>
+                                        <p class="align-self-center ml-1 m-0 text-white">Corriger ce Tips</p>
                                     </a>
                                 </div>
                             </div>

@@ -75,6 +75,7 @@ class TipsController extends AbstractController
         $form = $this->createForm(TipsType::class, $tip);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $tip->setStatus('en attente');
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('tips_index');
         }

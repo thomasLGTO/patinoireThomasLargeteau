@@ -29,6 +29,9 @@ h3{
     font-size: 1.17em;
     color : var(--color_fonce);
 }
+p{
+    color : var(--color_fonce);
+}
 a{
     color:var(--color_fonce);
 }
@@ -145,6 +148,9 @@ nav a:hover{
 .modal-content img{
     width: 100%;
     height: 100%;
+}
+.fontBigger{
+    font-size: 1.5em;
 }
 /* ===============body index Categorie=================== */
 
