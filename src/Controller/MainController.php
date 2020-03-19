@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ContactType;
 use App\Form\SearchBarType;
 use App\Repository\TipsRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -88,8 +89,7 @@ class MainController extends AbstractController
      */
     public function top100(Request $request,TipsRepository $tipsRepository , PaginatorInterface $paginator): Response
     {
-        
-        
+          
         $pagination = $paginator->paginate(
             $tipsRepository->findBy(
                 [],
@@ -105,6 +105,38 @@ class MainController extends AbstractController
             'picture'=>'top100',
             'pagination'=>$pagination,
             'user'=>$user
+        ]);
+    }
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function sendMessage(Request $request,\Swift_Mailer $mailer)
+    {
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $form->getData();
+
+            // send an email
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('votre@adresse.fr')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact')
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);  
+            return $this->redirectToRoute('main');
+        }
+        return $this->render('main/contact.html.twig',[
+            'contactForm' => $form->createView(),
+            'name' => 'Contact',
+            'picture'=>'contact',
         ]);
     }
 }
