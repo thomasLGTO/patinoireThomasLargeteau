@@ -111,8 +111,9 @@ class TipsController extends AbstractController
             $tip->addUser($this->getUser());
             $tip->setNumberUsers($tip->getNumberUsers()+1);
             $entityManager->flush();
-        } 
-        return $this->redirectToRoute('category_show',array('id'=>$tip->getCategory()->getId()));
+        }
+        // I come back to the page where I was 
+        return $this->redirect($request->get('url'));
     }
 
     /**
