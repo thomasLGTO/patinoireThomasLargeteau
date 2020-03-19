@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/moderation", name="moderation")
      */
-    public function moderate(TipsRepository $tipsRepository, Request $request): Response
+    public function moderate(TipsRepository $tipsRepository, Request $request,\Swift_Mailer $mailer): Response
     {
         
         // ====== refuse a tips ===========================
@@ -56,7 +56,24 @@ class SecurityController extends AbstractController
             $tip[0]->setRefusalReason($getReasonRefuse);
             $tip[0]->setStatus('refusé');
             $entityManager = $this->getDoctrine()->getManager();
+            
+            $test=$tip[0]->getUsers($this);
+            foreach ($test->toArray() as $user){   
+            // send an email to warn of refusal
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom('mon@adresse.fr')
+                ->setTo($user->getemail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/refusedTips.html.twig'
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+           }
         }
+        
         // get all tips where status aren't "actif"
         $unvalidTips = $tipsRepository->findby([
             'status' => ['en attente', 'refusé']

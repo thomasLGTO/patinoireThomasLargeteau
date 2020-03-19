@@ -163,6 +163,10 @@ nav a:hover{
     background-repeat: no-repeat; */
     background:var(--color_fonce);
 }
+
+.ctaRegister{
+    font-size: 2em;
+}
 /* ===============body index Categorie=================== */
 
 .boxImageCategory img{

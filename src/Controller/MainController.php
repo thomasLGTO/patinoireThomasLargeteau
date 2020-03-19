@@ -122,7 +122,7 @@ class MainController extends AbstractController
             // send an email
             $message = (new \Swift_Message('Nouveau contact'))
                 ->setFrom($contact['email'])
-                ->setTo('votre@adresse.fr')
+                ->setTo('mon@adresse.fr')
                 ->setBody(
                     $this->renderView(
                         'emails/contact.html.twig', compact('contact')
