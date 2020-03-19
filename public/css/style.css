@@ -63,6 +63,9 @@ a{
 .text-dark-grey{
     color:var(--color_dar_grey);
 }
+.bg-dark{
+    background: var(--color_fonce);
+}
 .bg-grey{
     background: var(--color_grey);
 }
@@ -151,6 +154,14 @@ nav a:hover{
 }
 .fontBigger{
     font-size: 1.5em;
+}
+
+.presentation{
+    height: 300px;
+    /* background-size: 100%;
+    background-position: center 60%;
+    background-repeat: no-repeat; */
+    background:var(--color_fonce);
 }
 /* ===============body index Categorie=================== */
 

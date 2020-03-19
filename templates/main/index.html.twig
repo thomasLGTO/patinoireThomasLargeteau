@@ -3,5 +3,38 @@
 {% block title %}{{name}}{% endblock %}
 
 {% block body %}
-    {% include "main/searchBar.html.twig" %}
+    <div class="container">
+    <h2 class="my-5">Les derniers Tips</h2>
+        <div class="row justify-content-between no-gutters">
+            <div class="boxAddTips d-flex justify-content-between col-8 mb-5">
+                {% if not app.user %}
+                    <a href="{{ path('app_login') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                {% else %}
+                    <a href="{{ path('tips_new') }}" class="btn btn-primary px-5">Ajouter un tips</a>
+                {% endif %}
+            </div>
+            {% include("main/searchBar.html.twig") %}
+            {{ include("tips/boxTips.html.twig",{sort : pagination}) }}
+            {{ render(controller(
+                'App\\Controller\\CategoryController::listCategory'
+            )) }}
+            <div class="rounded col-8 mt-5 presentation" {## style="background-image: linear-gradient(rgba(52, 73, 94, 0.5), rgba(52, 73, 94, 0.5)), url({{ asset('images/path.jpg') }});"#}>
+                <div class="container h-100">
+                    <div class="row align-items-center h-100 justify-content-center ">
+                        <img src="{{ asset('images/logo.png') }}" width="80" height="80"  alt="Logo">
+                        <p class="text-white textPresentation col-10  ">
+                            Un Tips est une astuce simple et efficace pour résoudre un problème récurrentVous savez cette idée toute bête, toute simple et qui pourtant vous facilite tellement la vie ?
+                            C’est ce que nous partageons ici. Les Tips nous permettent de gagner du temps,  
+                            de ne pas se retrouver face aux même problématiques sans savoir comment 
+                            réagir.
+                            Elles paraissent tellement évidente et pourtant…
+                            Marquez tous les Tips que vous utilisez et retrouvé ceux les plus utilisés
+                            Votre vie est rempli de Tips ? alors partagez les et faisons nous grandir 
+                            mutuellement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

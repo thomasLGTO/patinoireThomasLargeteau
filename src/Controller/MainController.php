@@ -15,11 +15,23 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="main")
      */
-    public function index()
+    public function index(Request $request, TipsRepository $tipsRepository, PaginatorInterface $paginator)
     {
+        $pagination = $paginator->paginate(
+            $tipsRepository->findBy(
+                [],
+                ['createdAt'=>'desc'],
+                5 /* the first hundred*/ 
+            ), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+        $user=$this->getUser();
         return $this->render('main/index.html.twig', [
             'name' => 'Accueil',
-            'picture'=>'pictureHome'
+            'picture'=>'seul',
+            'pagination'=>$pagination,
+            'user'=>$user
         ]);
     }
 
@@ -66,6 +78,31 @@ class MainController extends AbstractController
         return $this->render('main/search.html.twig', [
             'name' => 'Résultat de la recherche',
             'picture'=>'search',
+            'pagination'=>$pagination,
+            'user'=>$user
+        ]);
+    }
+
+    /**
+     * @Route("/top100", name="top100")
+     */
+    public function top100(Request $request,TipsRepository $tipsRepository , PaginatorInterface $paginator): Response
+    {
+        
+        
+        $pagination = $paginator->paginate(
+            $tipsRepository->findBy(
+                [],
+                ['numberUsers'=>'desc'],
+                100 /* the first hundred*/ 
+            ), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+        $user=$this->getUser();
+        return $this->render('main/search.html.twig', [
+            'name' => 'Top 100',
+            'picture'=>'top100',
             'pagination'=>$pagination,
             'user'=>$user
         ]);
