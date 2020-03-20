@@ -61,8 +61,11 @@ class TipsController extends AbstractController
      */
     public function show(Tips $tip): Response
     {
+        $tabTibs=[$tip];
         return $this->render('tips/show.html.twig', [
-            'tip' => $tip,
+            'tip' => $tabTibs,
+            'name' => 'Tips',
+            'picture'=>'pictureHome'
         ]);
     }
 

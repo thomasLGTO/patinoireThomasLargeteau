@@ -48,6 +48,16 @@ class MainController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/mentions_legales", name="legalNotice")
+     */
+    public function mentionLegales()
+    {
+        return $this->render('main/legalNotice.html.twig', [
+            'name' => 'Mentions légales',
+            'picture'=>'mentions_legales'
+        ]);
+    }
 
     /**
      * @Route("/recherche", name="search")

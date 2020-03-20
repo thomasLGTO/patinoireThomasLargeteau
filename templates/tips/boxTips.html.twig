@@ -11,7 +11,7 @@
                     <div class="boxTips rounded p-4 ">
                     {% endif %}
                         {% set i = i + 1 %}
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between mb-2">
                             <p class="text-success m-0"> {{tip.numberUsers}} utilisateurs </p>
                             <form  class="col-4"method="post" 
                                 {# if the user is not connected and clicks on the button, we redirect to the connection #}
@@ -67,8 +67,11 @@
                         </div>
                     </div>
                 {% endfor %}
-                <div class="m-auto ">
-                    {{ knp_pagination_render(pagination) }}
-                </div>
+                {% if pagination is defined %}
+                    <div class="m-auto ">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                {% endif %}
+                
                 
             </div>

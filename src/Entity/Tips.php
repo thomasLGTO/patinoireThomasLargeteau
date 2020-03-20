@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TipsRepository")
@@ -37,7 +38,15 @@ class Tips
     private $keywords;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=600)
+     * /**
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 600,
+     *      minMessage = "Votre titre est trop court",
+     *      maxMessage = "Votre Tips est trop long, vous pouvez utiliser {{ limit }} caractères maximun",
+     *      allowEmptyString = false
+     * )
      */
     private $contentTips;
 
