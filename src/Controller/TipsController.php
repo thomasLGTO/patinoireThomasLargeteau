@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/tips")
@@ -17,6 +18,7 @@ class TipsController extends AbstractController
 {
     /**
      * @Route("/", name="tips_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(TipsRepository $tipsRepository): Response
     {
@@ -45,8 +47,12 @@ class TipsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tip);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Votre Tips a été ajouté '
+            );
 
-            return $this->redirectToRoute('tips_index');
+            return $this->redirectToRoute('myAccount');
         }
 
         return $this->render('tips/new.html.twig', [
@@ -83,7 +89,11 @@ class TipsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tip->setStatus('en attente');
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('tips_index');
+            $this->addFlash(
+                'success',
+                'Votre Tips a bien été modifié '
+            );
+            return $this->redirectToRoute('main');
         }
         return $this->render('tips/edit.html.twig', [
             'tip' => $tip,
@@ -124,6 +134,7 @@ class TipsController extends AbstractController
 
     /**
      * @Route("/{id}", name="tips_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Tips $tip): Response
     {

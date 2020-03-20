@@ -92,6 +92,10 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Votre mot de passe a bien été modifié '
+            );
 
             // do anything else you need here, like send an email
 
@@ -102,6 +106,14 @@ class RegistrationController extends AbstractController
                 'main' // firewall name in security.yaml
             );
             return $this->redirectToRoute('main');
+        } 
+        if($form->isSubmitted()){
+            $this->addFlash(
+                'warning',
+                ' Erreur vous n\'avez pas saisie le même mot de passe '
+            );
+            
+            return $this->redirectToRoute('myAccount');
         }
 
         return $this->render('registration/_modifyPassword.html.twig', [

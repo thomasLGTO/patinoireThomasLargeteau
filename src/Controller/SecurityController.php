@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
@@ -43,6 +44,8 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/moderation", name="moderation")
+     * @IsGranted("ROLE_ADMIN")
+     * 
      */
     public function moderate(TipsRepository $tipsRepository, Request $request,\Swift_Mailer $mailer): Response
     {
@@ -99,6 +102,7 @@ class SecurityController extends AbstractController
     }
     /**
      * @Route("/{id}/validTIPS", name="validTips",methods={"VALIDTIPS"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function validTIPS(Request $request, Tips $tip): Response
     {

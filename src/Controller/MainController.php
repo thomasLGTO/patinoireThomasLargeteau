@@ -141,6 +141,10 @@ class MainController extends AbstractController
                 )
             ;
             $mailer->send($message);  
+            $this->addFlash(
+                'success',
+                'Votre mail a bien été envoyé '
+            );
             return $this->redirectToRoute('main');
         }
         return $this->render('main/contact.html.twig',[

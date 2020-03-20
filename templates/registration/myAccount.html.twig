@@ -74,12 +74,13 @@
                         </div>
                     {% endfor %}                
                 </div>
+            </div>
             {% endif %}
-                <div class="col-3 bg-lightgreen text-white  text-center rounded h-100 p-0">
+                
+                <div class="col-3 bg-lightgreen text-white  text-center rounded h-100 p-0 mr-0">
                     {{ render(controller(
                     'App\\Controller\\RegistrationController::modifyPassword'
                 )) }}
-                </div>
             </div>
     </div>
 </div>
