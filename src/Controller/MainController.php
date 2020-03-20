@@ -60,6 +60,17 @@ class MainController extends AbstractController
     }
 
     /**
+     * @Route("/conditions_generales", name="termsConditions")
+     */
+    public function conditionsGenerales()
+    {
+        return $this->render('main/termsConditions.html.twig', [
+            'name' => 'Conditions générales',
+            'picture'=>'termsConditions'
+        ]);
+    }
+
+    /**
      * @Route("/recherche", name="search")
      */
     public function newsearch(Request $request,TipsRepository $tipsRepository , PaginatorInterface $paginator): Response
