@@ -12,7 +12,7 @@
                     {% set i = 0 %}
                     {# pin up the numbers of tips in the category #}
                     {% for tip in tabTips %}
-                        {% if tip.category.id == category.id %}
+                        {% if tip.category.id == category.id and tip.status == 'actif' %}
                             {% set i = i + 1 %}
                         {% endif %}  
                     {% endfor %} 
@@ -25,7 +25,8 @@
             <p class="col-12 mt-0 mb-5 fontBigger ">Tips que vous avez créés mais pas encore validés</p>
             
             {% if noActiveTips is empty %}
-            <p>Tous vos tip sont validés</p>
+                <p class='col-8'>Tous vos tip sont validés</p>
+                <img class="col-8"src="{{ asset('images/relax.jpg') }}" alt="Kayak au millieu d'un lac, la personne a les bras croisés derrière la tête">
             {% else %}    
             <div class="col-lg-8">
                 <div class="allTips d-flex flex-column ">
@@ -74,11 +75,11 @@
                     {% endfor %}                
                 </div>
             {% endif %}
-            </div>
-            <div class="col-3 bg-lightgreen text-white  text-center rounded h-100 p-0">
-                {{ render(controller(
-                'App\\Controller\\RegistrationController::modifyPassword'
-            )) }}
+                <div class="col-3 bg-lightgreen text-white  text-center rounded h-100 p-0">
+                    {{ render(controller(
+                    'App\\Controller\\RegistrationController::modifyPassword'
+                )) }}
+                </div>
             </div>
     </div>
 </div>

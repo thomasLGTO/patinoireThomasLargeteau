@@ -20,7 +20,7 @@ class MainController extends AbstractController
     {
         $pagination = $paginator->paginate(
             $tipsRepository->findBy(
-                [],
+                ['status'=>'actif'],
                 ['createdAt'=>'desc'],
                 5 /* the first hundred*/ 
             ), /* query NOT result */
@@ -65,7 +65,7 @@ class MainController extends AbstractController
     public function newsearch(Request $request,TipsRepository $tipsRepository , PaginatorInterface $paginator): Response
     {
         $tips = $tipsRepository->findBy(
-            [],
+            ['status'=>'actif'],
             ['numberUsers'=>'desc']
         );
         // dump($tips[0]->getKeywords());
@@ -102,7 +102,7 @@ class MainController extends AbstractController
           
         $pagination = $paginator->paginate(
             $tipsRepository->findBy(
-                [],
+                ['status'=>'actif'],
                 ['numberUsers'=>'desc'],
                 100 /* the first hundred*/ 
             ), /* query NOT result */

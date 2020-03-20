@@ -149,13 +149,15 @@ class RegistrationController extends AbstractController
         $tabTips=[];
         foreach ($tips->toArray() as $tip){
             if($tip->getCategory()->getId() == $category->getId()){
-                array_push($tabTips,$tip);
+                if ($tip->getStatus() == 'actif'){
+                    array_push($tabTips,$tip);
+                }
             }            
         } 
         $pagination = $paginator->paginate(
             $tabTips, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            2 /*limit per page*/
+            10 /*limit per page*/
         );
 
         return $this->render('registration/myTips.html.twig', [
