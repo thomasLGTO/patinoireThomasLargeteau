@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container">
     <a href="{{ path('tips_new') }}" class="btn btn-primary px-5 mb-5">Ajouter un tips</a>
-    <div class="row">
+    <div class="row justify-content-between">
         <div class="row col-12 mb-5">
             {% for category in categories %}
                 <a class="boxImageCategory col-6 col-lg-2 mb-4" href="{{ path('myTips', {'id': category.id}) }}">
@@ -22,10 +22,13 @@
             {% endfor %}
         </div>
         {# ================ pin up no active tips===========  #}
+            <p class="col-12 mt-0 mb-5 fontBigger ">Tips que vous avez créés mais pas encore validés</p>
+            
             {% if noActiveTips is empty %}
+            <p>Tous vos tip sont validés</p>
             {% else %}    
-                <p class="col-12 mt-0 mb-5 fontBigger">Tips que vous avez créés mais pas encore validés</p>
-                <div class="allTips d-flex flex-column col-lg-8">
+            <div class="col-lg-8">
+                <div class="allTips d-flex flex-column ">
                     {% set i = 0 %}
                     {% for tip in noActiveTips %}
                         {% if (i % 2 == 0)%}
@@ -71,6 +74,12 @@
                     {% endfor %}                
                 </div>
             {% endif %}
+            </div>
+            <div class="col-3 bg-lightgreen text-white  text-center rounded h-100 p-0">
+                {{ render(controller(
+                'App\\Controller\\RegistrationController::modifyPassword'
+            )) }}
+            </div>
     </div>
 </div>
     

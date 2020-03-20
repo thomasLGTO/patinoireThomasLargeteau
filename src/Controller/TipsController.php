@@ -35,6 +35,7 @@ class TipsController extends AbstractController
         $tip = new Tips();
         $form = $this->createForm(TipsType::class, $tip);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $tip->addUser($this->getUser());
@@ -61,11 +62,13 @@ class TipsController extends AbstractController
      */
     public function show(Tips $tip): Response
     {
+        $user=$this->getuser();
         $tabTibs=[$tip];
         return $this->render('tips/show.html.twig', [
             'tip' => $tabTibs,
             'name' => 'Tips',
-            'picture'=>'pictureHome'
+            'picture'=>'pictureHome',
+            'user'=>$user
         ]);
     }
 

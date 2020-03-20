@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Category;
+use App\Form\ModifyPasswordType;
 use App\Form\RegistrationFormType;
 use App\Repository\TipsRepository;
 use App\Repository\UserRepository;
@@ -55,6 +56,58 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
             'picture'=>'inscription',
             'name'=>'Inscription'
+        ]);
+    }
+
+    /**
+     * @Route("/modification", name="modifyPassword",methods={"POST"})
+     */
+    public function modifyPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserConnexionAuthenticator $authenticator,\Swift_Mailer $mailer): Response
+    {
+        $user = $this->getuser();
+        $form = $this->createForm(ModifyPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // send an email to confirm the modification
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom('mon@adresse.fr')
+                ->setTo($user->getemail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/confirmModificationPassword.html.twig',
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+            // encode the plain password
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // do anything else you need here, like send an email
+
+            return $guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $authenticator,
+                'main' // firewall name in security.yaml
+            );
+            return $this->redirectToRoute('main');
+        }
+
+        return $this->render('registration/_modifyPassword.html.twig', [
+            'registrationForm' => $form->createView(),
+            'picture'=>'inscription',
+            'name'=>'Modification du mot de passe'
         ]);
     }
 
