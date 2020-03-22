@@ -26,7 +26,7 @@
             
             {% if noActiveTips is empty %}
                 <p class='col-8'>Tous vos tip sont validés</p>
-                <img class="col-8"src="{{ asset('images/relax.jpg') }}" alt="Kayak au millieu d'un lac, la personne a les bras croisés derrière la tête">
+                <img class="col-lg-8 col-12 mb-lg-0 mb-5"src="{{ asset('images/relax.jpg') }}" alt="Kayak au millieu d'un lac, la personne a les bras croisés derrière la tête">
             {% else %}    
             <div class="col-lg-8">
                 <div class="allTips d-flex flex-column ">
@@ -77,7 +77,7 @@
             </div>
             {% endif %}
                 
-                <div class="col-3 bg-lightgreen text-white  text-center rounded h-100 p-0 mr-0">
+                <div class="col-lg-3 col-12 bg-lightgreen text-white  text-center rounded h-100 p-0 mr-0">
                     {{ render(controller(
                     'App\\Controller\\RegistrationController::modifyPassword'
                 )) }}

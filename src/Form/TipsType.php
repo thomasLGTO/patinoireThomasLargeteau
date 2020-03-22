@@ -36,9 +36,12 @@ class TipsType extends AbstractType
             ->add('contentTips', TextareaType::class,[
                 'label' => 'Le tips *',
                 'required'=>true,
+                'attr' => [
+                    'placeholder' => 'Explication du tips, 600 caractères maximun'
+            ]
             ])
             ->add('imageFile', VichImageType::class, [
-                'label'=> 'joindre des photos',
+                'label'=> 'joindre une photo',
                 'required' => false,
                 'allow_delete' => false,
                 'download_label' => '...',

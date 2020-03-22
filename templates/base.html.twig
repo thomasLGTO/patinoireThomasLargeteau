@@ -16,7 +16,7 @@
         {% block intro %}
             <div style="background-image: url({{ asset('images/'~picture~'.jpg') }});" class="box mb-5">
                 <div class="opaquefilter"></div>
-                <h1 class="Middletitle position-absolute">{{name}}</h1>
+                <h1 class="Middletitle position-absolute col-10 text-center">{{name}}</h1>
             </div>
         {% endblock %}
         {% for label, messages in app.flashes(['success', 'warning']) %}
