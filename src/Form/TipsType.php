@@ -57,7 +57,7 @@ class TipsType extends AbstractType
                         ->orderBy('u.nameCategory', 'ASC');
                 },
                 'choice_label' => 'nameCategory',  
-                'placeholder' => 'Choisissez une catégories',
+                'placeholder' => 'Choisissez une catégorie',
                 'required'=>true
             ])
         ;
