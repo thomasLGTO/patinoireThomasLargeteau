@@ -37,7 +37,6 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            dump($form->get('email')->getData());
             // send an email
             $message = (new \Swift_Message('Nouveau contact'))
                 ->setFrom('moncontact.tips@gmail.com')

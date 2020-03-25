@@ -39,6 +39,7 @@
                         <h3>{{tip.titleTips | upper}}</h3>
                         <p>{{tip.contentTips}}</p>
                         <p>Les mots clès : {{tip.keywords}}</p>
+                        <p>Catégorie : {{tip.category.nameCategory}}</p>
                         <div class="col-12 d-none boxRefuse">
                             <p>Motif de refus :</p>
                             <form class="col-3 mb-5 d-flex"action="{{ path('moderation') }}" method="post">
