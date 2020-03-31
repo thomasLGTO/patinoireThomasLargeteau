@@ -4,24 +4,26 @@
 
 {% block body %}
     <div class="container">
-        <div class="row no-gutters">
-            <h2 class="mt-0">C'est quoi un tips ?</h2>
-            <p class="col-lg-10 ">Un tips est une astuce simple et efficace pour résoudre un problème récurrent. 
-            Vous savez cette idée toute bête, toute simple et qui pourtant vous facilite 
-            tellement la vie !
-            Les Tips nous permettent de gagner du temps, d’améliorer notre comportement face aux difficultés répétitives.
-            Souvent au premier abord un tips paraît être une idée simple et évidente, pourtant lorsque nous la connaissant pas on ne la trouve pas forcément. Ne cherchez plus, les tips que vous avez besoin sont ici, et si vous ne trouvez pas ce que vous cherchez, créez votre propre tips à partager.
-            </p>
-            <h2>Pourquoi ce site ?</h2>
+        <div class="row no-gutters justify-content-between">
+            <div class="col-lg-8">
+                <h2 class="my-3">C'est quoi un tips ?</h2>
+                <p class="m-0">Un tips est une astuce simple et efficace pour résoudre un problème récurrent. 
+                Vous savez cette idée toute bête, toute simple et qui pourtant vous facilite 
+                tellement la vie !
+                Les Tips nous permettent de gagner du temps, d’améliorer notre comportement face aux difficultés répétitives.
+                Souvent au premier abord un tips paraît être une idée simple et évidente, pourtant lorsque nous la connaissant pas on ne la trouve pas forcément. Ne cherchez plus, les tips que vous avez besoin sont ici, et si vous ne trouvez pas ce que vous cherchez, créez votre propre tips à partager.
+                </p>
+            </div>
+            <a class="col-lg-3 col-7 mb-lg-0 mb-5 mx-auto mx-lg-0" href="{{ path('app_register') }}"><img src="{{ asset('images/ctaRegister.png') }}" class="w-100" alt="Photo d'un groupe d'individu"></a>
+            <h2 class="my-3">Pourquoi ce site ?</h2>
             <div class="textbox row justify-content-between no-gutters">
-                <p class="col-lg-7 ">L’idée de ce site vient d’un constat très simple, nous rencontrons régulièrement les mêmes problématiques sans forcément prendre le temps de trouver une solution qui nous convient.
+                <p class="col-lg-8 mb-5 ">L’idée de ce site vient d’un constat très simple, nous rencontrons régulièrement les mêmes problématiques sans forcément prendre le temps de trouver une solution qui nous convient.
                 Le but est de nous faire grandir, pour améliorer son quotidien, devenir une meilleure version de soi même, pour ne pas répéter les mêmes erreurs.
                 Une liste des Tips par catégories vous permet de vous y retrouver ainsi qu’une barre de recherche pour trouver ce dont vous avez besoin.
                 </p>
-                <img src="{{ asset('images/ski.jpg') }}" alt="" class="col-lg-4 rounded mb-5">
-                <h2>Ce que vous ne trouverez pas sur ce site</h2>
-                <img src="{{ asset('images/goutte.jpg') }}" alt="" class="col-lg-4 rounded mt-5">
-                <p class="col-lg-7 mt-5">Pas de jugement, pour chaque tips vous pouvez uniquement signaler si vous l’utilisez. Pas de possibilités de dire si vous trouvez ce tips “nul” ou génial le classement des tips les plus utilisées s'en chargera pour vous. De même les tips de type tuto ou tirés d’études scientifiques… ne seront pas acceptés. Un tips est court,clair et simple.
+                <img src="{{ asset('images/montagneVerte.jpg') }}" alt="" class="col-lg-12 rounded "    >
+                <h2 class="mt-5 mb-3">Ce que vous ne trouverez pas sur ce site</h2>
+                <p class="col-lg-8">Pas de jugement, pour chaque tips vous pouvez uniquement signaler si vous l’utilisez. Pas de possibilités de dire si vous trouvez ce tips “nul” ou génial le classement des tips les plus utilisées s'en chargera pour vous. De même les tips de type tuto ou tirés d’études scientifiques… ne seront pas acceptés. Un tips est court,clair et simple.
                 Faites également preuve de discernement à leurs lecture, ils sont la représentation de ce qui marche pour quelqu’un, il n’y a pas de véracité dans ces propos, à chacun de juger et prendre ses responsabilitées quand à leurs l’utilisations.
                 </p>         
             </div>
