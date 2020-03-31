@@ -15,6 +15,7 @@
         </div>
         <div class="d-flex">
           {% if not app.user %}
+            <a class="nav-item nav-link mx-3" href="{{ path('app_register') }}"><span class="fa fa-user-o mr-2"></span>S'inscrire</a>
             <a class="nav-item nav-link" href="{{ path('app_login') }}"><span class="fa fa-user mr-2"></span>Connexion</a>
           {% else %}
             <a class="nav-item nav-link" href="{{ path('myAccount') }}"><span class="fa fa-user mr-2"></span>Mon compte</a>
