@@ -86,7 +86,8 @@ class MainController extends AbstractController
         $sortTips =[];
         if (empty($wordsSearchedChecked) == false ){
             for ($i=0;$i<count($tips);$i++){
-                if(stristr($tips[$i]->getKeywords(), $wordsSearched)) {
+                // dump($tips[$i]->getTitleTips());
+                if(stristr($tips[$i]->getKeywords(), $wordsSearched) or stristr($tips[$i]->getTitleTips(), $wordsSearched) ) {
                     $sortTips[]=$tips[$i];
                 }
             }
