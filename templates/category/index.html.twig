@@ -8,8 +8,11 @@
     <div class="row">
         {% for category in categories %}
             <a class="boxImageCategory col-6 col-lg-2 mb-4" href="{{ path('category_show', {'id': category.id}) }}">
-                <h3>{{ category.nameCategory }}</h3>      
-                <img class="rounded " src='{{ asset('images/'~category.pictureCategory~'.jpg') }}' alt="Image des catégories">     
+                <h3>{{ category.nameCategory }}</h3>
+                <div class="rounded">
+                    <img class="w-100 rounded" src='{{ asset('images/'~category.pictureCategory~'.jpg') | imagine_filter('carre') }}' alt="Image des catégories">     
+                </div>      
+                
             </a>  
         {% endfor %}
     </div>
