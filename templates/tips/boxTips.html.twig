@@ -12,7 +12,12 @@
                     {% endif %}
                         {% set i = i + 1 %}
                         <div class="d-flex justify-content-between mb-2">
-                            <p class="text-success m-0"> {{tip.numberUsers}} utilisateurs </p>
+                            <p class="text-success m-0"> {{tip.numberUsers}} 
+                            {% if tip.numberUsers == 1 %}
+                                utilisateur </p>
+                            {% else %}
+                                utilisateurs </p>
+                            {% endif %}                    
                             <form  class="col-4"method="post" 
                                 {# if the user is not connected and clicks on the button, we redirect to the connection #}
                                 {% if app.user %}
