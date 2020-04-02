@@ -46,6 +46,11 @@ class User implements UserInterface
      */
     private $tips;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $activationToken;
+
     public function __construct()
     {
         $this->tips = new ArrayCollection();
@@ -154,6 +159,18 @@ class User implements UserInterface
             $this->tips->removeElement($tip);
             $tip->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function setActivationToken(?string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
 
         return $this;
     }

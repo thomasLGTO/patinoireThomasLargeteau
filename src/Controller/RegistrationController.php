@@ -41,13 +41,16 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            // we create and save a token
+            $user->setActivationToken(md5(uniqid()));
             // send an email
             $message = (new \Swift_Message('Nouveau contact'))
                 ->setFrom('moncontact.tips@gmail.com')
                 ->setTo($form->get('email')->getData())
                 ->setBody(
                     $this->renderView(
-                        'emails/welcome.html.twig', 
+                        'emails/activation.html.twig', ['token' => $user->getActivationToken()] 
                     ),
                     'text/html'
                 )
@@ -73,6 +76,45 @@ class RegistrationController extends AbstractController
             'picture'=>'inscription',
             'name'=>'Inscription'
         ]);
+    }
+
+    /**
+     * @Route("/activation/{token}", name="activation")
+     */
+    public function activation($token, UserRepository $users,\Swift_Mailer $mailer)
+    {
+        // We search user with this token
+        $user = $users->findOneBy(['activationToken' => $token]);
+
+        // if any user has this token
+        if(!$user){
+            // Error 404
+            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+        }
+
+        // we delete the token
+        $user->setActivationToken(null);
+        
+        // we send a mail
+        $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom('moncontact.tips@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/welcome.html.twig', 
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Votre compte est bien activé');
+
+        return $this->redirectToRoute('main');
     }
 
     /**
