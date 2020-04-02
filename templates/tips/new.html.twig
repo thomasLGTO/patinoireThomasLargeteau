@@ -3,6 +3,7 @@
 {% block title %}{{name}}{% endblock %}
 
 {% block body %}
+{% if app.user.getActivationToken() == null %}
     <div class="container">
         <div class="row no-gutters justify-content-between">
             <h2>Règles pour déposer un tips</h2>
@@ -24,4 +25,6 @@
             </div>
         </div>
     </div>
+{% else %}
+{% endif %}
 {% endblock %}

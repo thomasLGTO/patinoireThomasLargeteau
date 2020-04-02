@@ -30,10 +30,11 @@ class TipsController extends AbstractController
     }
 
     /**
-     * @Route("/nouveau", name="tips_new", methods={"GET","POST"})
+     * @Route("/nouveau", name="tips_new", methods={"GET","POST","USETIPS"})
      */
     public function new(Request $request): Response
     {
+        $user=$this->getUser();
         $tip = new Tips();
         $form = $this->createForm(TipsType::class, $tip);
         $form->handleRequest($request);
@@ -53,6 +54,10 @@ class TipsController extends AbstractController
             );
 
             return $this->redirectToRoute('myAccount');
+        }
+
+        if ($user->getActivationToken() != null ){
+            $this->addFlash('warning', 'Attention votre compte n\'est pas encore activé, vous ne pouvez pas ajouté de Tips');
         }
 
         return $this->render('tips/new.html.twig', [

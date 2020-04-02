@@ -62,6 +62,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
+            $this->addFlash('warning', 'Un email de confirmation vous a été envoyé pour activer votre compte');
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

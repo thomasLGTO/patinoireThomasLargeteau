@@ -21,7 +21,11 @@
                             <form  class="col-4"method="post" 
                                 {# if the user is not connected and clicks on the button, we redirect to the connection #}
                                 {% if app.user %}
-                                    action="{{ path('tips_newUser', {'id': tip.id,'url': app.request.uri}) }}">
+                                    {% if app.user.getActivationToken() == null %}
+                                        action="{{ path('tips_newUser', {'id': tip.id,'url': app.request.uri}) }}">
+                                    {% else %}
+                                        action="{{ path('tips_new') }}">
+                                    {% endif %}
                                 {% else %}
                                     action="{{ path('app_login') }}">
                                 {% endif %}
