@@ -138,6 +138,32 @@ class TipsController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/favoriteTips", name="favoriteTips",methods={"FAVORITE"})
+     */
+    public function favoriteTips(Request $request, Tips $tip): Response
+    {
+        $user=$this->getUser();
+        $flag=0;
+           if ($this->isCsrfTokenValid('favorite'.$tip->getId(), $request->request->get('_token')) && $this->getUser()) {
+            $tab=$user->getfavoriteTips();
+            for ($i=0;$i<count($tab);$i++){
+                if ($tab[$i] == $tip->getId()){
+                    $flag=1;
+                    unset($tab[array_search($tip->getId(), $tab)]);
+                }
+            }
+            if ($flag == 0){
+                array_push($tab,$tip->getId());
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $user->setFavoriteTips($tab);
+            $entityManager->flush();
+        }
+        // I come back to the page where I was 
+        return $this->redirect($request->get('url'));
+    }
+
+    /**
      * @Route("/{id}", name="tips_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */

@@ -5,6 +5,9 @@
 {% block body %}
 <div class="container">
     <a href="{{ path('tips_new') }}" class="btn btn-primary px-5 mb-5">Ajouter un tips</a>
+    <div class="btn invisible px-5 mb-5 float-right">>
+        <a href="{{ path('viewFavorite') }}" class="visible"> <i class="fa fa-heart" aria-hidden="true"></i> Mes Favoris </a>
+    </div>
     <div class="row justify-content-between">
         <div class="row col-12 mb-5">
             {% for category in categories %}

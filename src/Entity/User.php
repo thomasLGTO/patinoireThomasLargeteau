@@ -51,6 +51,11 @@ class User implements UserInterface
      */
     private $activationToken;
 
+    /**
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $favoriteTips = [];
+
     public function __construct()
     {
         $this->tips = new ArrayCollection();
@@ -171,6 +176,18 @@ class User implements UserInterface
     public function setActivationToken(?string $activationToken): self
     {
         $this->activationToken = $activationToken;
+
+        return $this;
+    }
+
+    public function getFavoriteTips(): ?array
+    {
+        return $this->favoriteTips;
+    }
+
+    public function setFavoriteTips(?array $favoriteTips): self
+    {
+        $this->favoriteTips = $favoriteTips;
 
         return $this;
     }

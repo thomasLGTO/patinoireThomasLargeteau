@@ -241,4 +241,29 @@ class RegistrationController extends AbstractController
             'user'=>$user
         ]);
     }
+    /**
+     * @Route("/mes_favoris", name="viewFavorite")
+     */
+    public function viewFavorite(CategoryRepository $categoryRepository,TipsRepository $tipsRepository): Response
+    {
+        $user=$this->getuser();
+        $listIdFavoriteTips=$user->getFavoriteTips();
+        $tabFavoritesTips=[];
+        for ($i=0;$i<count($listIdFavoriteTips);$i++){
+            $favoriteTips=$tipsRepository->findBy([
+                'id' => $listIdFavoriteTips[$i],
+            ]);
+            array_push($tabFavoritesTips,$favoriteTips[0]);
+        }
+        return $this->render('registration/favoriteTips.html.twig', [
+            'picture'=>'monCompte',
+            'name'=>'Mes Tips favoris',
+            'tabFavoritesTips'=> $tabFavoritesTips,
+            'user'=>$user,
+            'categories' => $categoryRepository->findBy(
+                [],
+                ['nameCategory' => 'ASC']
+            ),
+        ]);
+    }
 }

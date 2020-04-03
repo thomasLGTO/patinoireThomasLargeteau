@@ -50,7 +50,32 @@
                                 </button>
                             </form>
                         </div>
-                        <h3>{{tip.titleTips | upper}}</h3>
+                        <form method="post" action="{{ path('favoriteTips', {'id': tip.id,'url': app.request.uri}) }}">
+                        <h3>{{tip.titleTips | upper}}
+                        <input type="hidden" name="_method" value="FAVORITE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('favorite' ~ tip.id) }}">
+                        <button class="invisible">
+                        {% if app.user %}
+                            {% if app.user.getActivationToken() == null %}
+                                {% set flag1 = 0 %}
+                                {% if app.user.favoriteTips == null %}
+                                    <i class="fa fa-heart-o visible" aria-hidden="true"></i>
+                                {% else %}
+                                    {% for i in 0..app.user.favoriteTips|length -1 %}
+                                        {% if app.user.favoriteTips[i] == tip.id %}
+                                            {% set flag1 = 1 %}
+                                            <i class="fa fa-heart visible" aria-hidden="true"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if flag1 == 0 %}
+                                        <i class="fa fa-heart-o visible" aria-hidden="true"></i>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        </button>
+                        </form>
+                        </h3>
                         <p>{{tip.contentTips}}</p>
                         <div class="boxIcon d-flex justify-content-between align-items-end mt-4">
                             {# share on Facebook #}

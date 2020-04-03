@@ -163,6 +163,9 @@ nav a:hover{
     background-repeat: no-repeat; */
     background:var(--color_fonce);
 }
+.fa-heart{
+    color: var(--color_red);
+}
 
 
 /* ===============body index Categorie=================== */
