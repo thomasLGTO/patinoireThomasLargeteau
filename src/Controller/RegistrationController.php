@@ -253,7 +253,9 @@ class RegistrationController extends AbstractController
             $favoriteTips=$tipsRepository->findBy([
                 'id' => $listIdFavoriteTips[$i],
             ]);
-            array_push($tabFavoritesTips,$favoriteTips[0]);
+            if ($favoriteTips){
+                array_push($tabFavoritesTips,$favoriteTips[0]);
+            }
         }
         return $this->render('registration/favoriteTips.html.twig', [
             'picture'=>'monCompte',
