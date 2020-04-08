@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class RegistrationController extends AbstractController
 {
@@ -184,6 +185,7 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/mon_compte", name="myAccount")
+     * @IsGranted("ROLE_USER")
      */
     public function viewAccount(CategoryRepository $categoryRepository, TipsRepository $tipsRepository): Response
     {
@@ -212,6 +214,7 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/mon_compte/{id}", name="myTips")
+     * @IsGranted("ROLE_USER")
      */
     public function viewMyTips(Category $category,Request $request, PaginatorInterface $paginator, CategoryRepository $categoryRepository, TipsRepository $tipsRepository): Response
     {
@@ -243,12 +246,14 @@ class RegistrationController extends AbstractController
     }
     /**
      * @Route("/mes_favoris", name="viewFavorite")
+     *  @IsGranted("ROLE_USER")
      */
     public function viewFavorite(CategoryRepository $categoryRepository,TipsRepository $tipsRepository): Response
     {
         $user=$this->getuser();
         $listIdFavoriteTips=$user->getFavoriteTips();
         $tabFavoritesTips=[];
+        $j=0;
         for ($i=0;$i<count($listIdFavoriteTips);$i++){
             $favoriteTips=$tipsRepository->findBy([
                 'id' => $listIdFavoriteTips[$i],
@@ -256,7 +261,17 @@ class RegistrationController extends AbstractController
             if ($favoriteTips){
                 array_push($tabFavoritesTips,$favoriteTips[0]);
             }
+            else{
+                $j=$i;
+            }
         }
+        // if a tips was not found it's deleted, so i update my favorite list
+        if ($j != 0){
+            unset($listIdFavoriteTips[array_search($listIdFavoriteTips[$j], $listIdFavoriteTips)]);
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $user->setFavoriteTips($listIdFavoriteTips);
+        $entityManager->flush();
         return $this->render('registration/favoriteTips.html.twig', [
             'picture'=>'monCompte',
             'name'=>'Mes Tips favoris',
